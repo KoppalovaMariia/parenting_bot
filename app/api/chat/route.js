@@ -4,5 +4,6 @@ export async function POST(req) {
     `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`
   );
   const data = await res.json();
-  return Response.json(data);
+  const names = data.models?.map(m => m.name).join(", ") || JSON.stringify(data).slice(0, 500);
+  return Response.json({ text: names });
 }
